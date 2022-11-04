@@ -2,11 +2,13 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./style.scss";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userRegisterAsync } from "../../redux/actions/userAction";
 
 const Register = () => {
   const dispatch = useDispatch();
+
+  const { error } = useSelector((state) => state.user);
 
   const {
     register,
@@ -23,6 +25,11 @@ const Register = () => {
         password: data.password1,
       };
       dispatch(userRegisterAsync(newUser));
+      if (error) {
+        alert("hay error");
+      } else {
+        alert("usuario creado exitosamente");
+      }
       console.log(data);
     }
   };
